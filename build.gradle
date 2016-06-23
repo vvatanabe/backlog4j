@@ -2,16 +2,31 @@ buildscript {
     repositories {
         mavenCentral()
     }
+    dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+    }
 }
+
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'cobertura'
+apply plugin: 'com.github.kt3k.coveralls'
+
+
+cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
+
 
 sourceCompatibility=1.6
 
 group = 'com.nulab-inc'
 archivesBaseName = 'backlog4j'
 version = '2.1.6-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
 
 repositories {
     mavenCentral()
